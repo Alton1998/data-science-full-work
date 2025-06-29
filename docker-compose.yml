@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  pytorch-jupyter:
+    image: cyberhead1998/pytorch-jupyter:latest  # Replace with your Docker Hub image
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [compute, utility]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./workspace:/workspace  # Mount a local folder to persist your work
+  # jupyter-2:  # you can change this to whatever you want.
+  #   container_name: machine-learning-workspace-2
+  #   image: tensorflow/tensorflow:2.1.1-gpu-jupyter
+  #   volumes:
+  #     - "./:/tf/notebooks"
+  #   ports:
+  #     - "8889:8888"
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #         -  driver: nvidia
+  #            count: all
+  #            capabilities: [gpu]
